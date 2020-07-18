@@ -13,6 +13,13 @@ const orderSchema = new Schema(
     status: {
       type: String,
       required: true,
+      enum: [
+        'Placed',
+        'Cancelled',
+        'Accepted',
+        'Completed',
+        'Out For Delivery',
+      ],
     },
     user: {
       email: {
@@ -21,6 +28,10 @@ const orderSchema = new Schema(
       },
       address: {
         type: Object,
+        required: true,
+      },
+      name: {
+        type: String,
         required: true,
       },
       userId: {
