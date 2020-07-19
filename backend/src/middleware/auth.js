@@ -29,6 +29,7 @@ const verifyToken = (req, res) => {
 
 exports.verifyUser = (req, res, next) => {
   const accountId = verifyToken(req, res);
+  console.log(accountId);
   Account.findById(accountId)
     .then((account) => {
       if (!account) {
