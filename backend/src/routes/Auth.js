@@ -1,9 +1,9 @@
 const express = require('express');
 const { body } = require('express-validator');
 
-const User = require('../models/user');
-const Account = require('../models/account');
-const authController = require('../controllers/authController');
+const User = require('../models/User');
+const Account = require('../models/Account');
+const authController = require('../controllers/AuthController');
 
 const router = express.Router();
 
@@ -44,7 +44,7 @@ router.get('/verify/:token', authController.verifyAccount);
 router.post('/login', authController.login);
 
 router.post(
-  '/signup-seller',
+  '/signup-restaurant',
   [
     body('email', 'Please enter a valid email to continue.')
       .isEmail()
@@ -66,8 +66,8 @@ router.post(
     body('tags', 'Tags cannot be empty').trim().not().isEmpty(),
     body('street', 'Street cannot be empty').trim().not().isEmpty(),
     body('locality', 'Locality cannot be empty').trim().not().isEmpty(),
-    body('aptName', 'Apartment name cannot be empty').trim().not().isEmpty(),
-    body('zip', 'Zipcode cannot be empty').trim().not().isEmpty(),
+    body('apt', 'Apartment name cannot be empty').trim().not().isEmpty(),
+    body('cep', 'Zipcode cannot be empty').trim().not().isEmpty(),
     body('costForOne', 'Cost for one cannot be empty').trim().not().isEmpty(),
     body('minOrderAmount', 'Minimum Order Amount cannot be empty')
       .trim()
@@ -81,7 +81,7 @@ router.post(
         }
         return true;
       }),
-    body('phoneNo', 'Enter a valid 10 digit phone number')
+    body('phone', 'Enter a valid 10 digit phone number')
       .trim()
       .isLength({ min: 10, max: 10 }),
   ],

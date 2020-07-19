@@ -3,9 +3,9 @@ const fs = require('fs');
 
 const { validationResult } = require('express-validator');
 
-const Item = require('../models/item');
-const Restaurant = require('../models/restaurant');
-const Account = require('../models/account');
+const Item = require('../models/Item');
+const Restaurant = require('../models/Restaurant');
+const Account = require('../models/Account');
 
 exports.createItem = (req, res, next) => {
   const errors = validationResult(req);
