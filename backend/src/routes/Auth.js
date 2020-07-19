@@ -85,7 +85,7 @@ router.post(
       .trim()
       .isLength({ min: 10, max: 10 }),
   ],
-  authController.signupSeller
+  authController.signupRestaurant
 );
 
 router.post('/images-test', authController.imagesTest);

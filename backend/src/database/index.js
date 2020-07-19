@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 mongoose
   .connect(
-    `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-ehilu.mongodb.net/<dbname>?retryWrites=true&w=majority`
+    `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-ehilu.mongodb.net/<dbname>?retryWrites=true&w=majority`,
+    { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then((result) => {
     console.log('Connected to db');

@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post(
   '/create-item',
-  auth.verifySeller,
+  auth.verifyRestaurant,
   [
     body('title', 'Title needs to be at least 4 characters long')
       .trim()
@@ -21,13 +21,13 @@ router.post(
 
 router.delete(
   '/delete-item/:itemId',
-  auth.verifySeller,
+  auth.verifyRestaurant,
   itemController.deleteItem
 );
 
 router.put(
   '/edit-item/:itemId',
-  auth.verifySeller,
+  auth.verifyRestaurant,
   [
     body('title', 'Title needs to be at least 4 characters long')
       .trim()
@@ -38,8 +38,8 @@ router.put(
   itemController.editItem
 );
 
-router.get('/get-items', auth.verifySeller, itemController.getItems);
+router.get('/get-items', auth.verifyRestaurant, itemController.getItems);
 
-router.get('/get-item/:itemId', auth.verifySeller, itemController.getItem);
+router.get('/get-item/:itemId', auth.verifyRestaurant, itemController.getItem);
 
 module.exports = router;

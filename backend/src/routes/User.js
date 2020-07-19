@@ -47,12 +47,10 @@ router.post('/order', auth.verifyUser, userController.postOrder);
 
 router.get('/orders', userController.getOrders);
 
-router.post('/order-status/:orderId', userController.postOrderStatus);
-
 router.get('/clients/connected', userController.getConnectedClients);
 
 router.get(
-  '/restaurants-location/:lat/:lng',
+  '/restaurants-location/:latitude/:longitude',
   userController.getRestaurantsByAddress
 );
 
