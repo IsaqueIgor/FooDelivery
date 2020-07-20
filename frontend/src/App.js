@@ -23,7 +23,7 @@ import AppBar from './components/AppBar';
 import Footer from './components/Footer';
 
 //restrict routes
-import { AuthRoute, SellerRoute, UserRoute } from './routes.js';
+import { AuthRoute, RestaurantRoute, UserRoute } from './routes.js';
 
 //pages
 import Home from './pages/Home';

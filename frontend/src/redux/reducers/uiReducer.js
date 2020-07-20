@@ -5,7 +5,7 @@ import {
   SERVER_ERROR,
   SIGNUP_SUCCESS,
   SET_ERROR,
-  SET_ERRORS_SIGNUP_SELLER,
+  SET_ERRORS_SIGNUP_RESTAURANT,
   SET_ERROR_ITEM,
 } from '../types';
 
@@ -40,7 +40,7 @@ export default function (state = initialState, action) {
         errors: action.payload,
         serverError: false,
       };
-    case SET_ERRORS_SIGNUP_SELLER:
+    case SET_ERRORS_SIGNUP_RESTAURANT:
       return {
         ...state,
         loading: false,
