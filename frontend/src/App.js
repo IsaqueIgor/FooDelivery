@@ -22,6 +22,14 @@ import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import AppBar from './components/AppBar';
 import Footer from './components/Footer';
 
+//restrict routes
+import { AuthRoute, SellerRoute, UserRoute } from './routes.js';
+
+//pages
+import Home from './pages/Home';
+import Error404 from './pages/404';
+import Login from './pages/Login';
+
 //theme
 import themeFile from './util/theme';
 
@@ -48,6 +56,12 @@ function App() {
       <Provider store={store}>
         <Router>
           <AppBar />
+
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <AuthRoute exact path='/login' component={Login} />
+            <Route component={Error404} />
+          </Switch>
           <Footer />
         </Router>
       </Provider>

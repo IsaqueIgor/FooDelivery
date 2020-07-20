@@ -11,6 +11,10 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+//custom-hook
+import useForm from '../hooks/forms';
+import { loginAction } from '../redux/actions/authActions';
+
 const useStyles = makeStyles((theme) => ({
   ...theme.spreadThis,
   title: {
@@ -31,6 +35,22 @@ export default function Login() {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const loginHandle = (props) => {
+    const userData = {
+      email: inputs.email,
+      password: inputs.password,
+    };
+    dispatch(loginAction(userData, history));
+  };
+
+  const { inputs, handleInputChange, handleSubmit } = useForm(
+    {
+      email: '',
+      password: '',
+    },
+    loginHandle
+  );
+
   let incorrectCredentialsError = null;
   let verifyEmailError = null;
   if (errors) {
@@ -46,6 +66,67 @@ export default function Login() {
         <Typography variant='h3' className={classes.title}>
           Login
         </Typography>
+        <form noValidate onSubmit={handleSubmit}>
+          {signUpSuccess && (
+            <Typography variant='body2' className={classes.customSuccess}>
+              Account registered successfully, please verify your Email before
+              logging-in
+            </Typography>
+          )}
+          <TextField
+            id='email'
+            name='email'
+            label='Email'
+            className={classes.textField}
+            onChange={handleInputChange}
+            value={inputs.email}
+            fullWidth
+          />
+          <TextField
+            id='password'
+            name='password'
+            type='password'
+            label='Password'
+            className={classes.textField}
+            onChange={handleInputChange}
+            value={inputs.password}
+            fullWidth
+          />
+          {serverError && (
+            <Typography variant='body2' className={classes.customError}>
+              {'server error, please try again'}
+            </Typography>
+          )}
+
+          {verifyEmailError && (
+            <Typography variant='body2' className={classes.customError}>
+              {verifyEmailError}
+            </Typography>
+          )}
+
+          {incorrectCredentialsError && (
+            <Typography variant='body2' className={classes.customError}>
+              {incorrectCredentialsError}
+            </Typography>
+          )}
+
+          <Button
+            type='submit'
+            variant='contained'
+            color='primary'
+            className={classes.button}
+            disabled={loading}
+          >
+            Login
+            {loading && (
+              <CircularProgress size={30} className={classes.progress} />
+            )}
+          </Button>
+          <br />
+          <small className={classes.small}>
+            don't have an account ? sign up <Link to='/register'>here</Link>
+          </small>
+        </form>
       </Grid>
     </Grid>
   );
