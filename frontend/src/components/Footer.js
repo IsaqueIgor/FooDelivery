@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     backgroundColor: '#e8ede1',
     marginTop: 40,
-    height: '42vh',
+    height: '32vh',
     textAlign: 'center',
   },
   innerCont: {
