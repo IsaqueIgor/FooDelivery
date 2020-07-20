@@ -9,8 +9,6 @@ const authRoutes = require('./src/routes/Auth');
 const itemRoutes = require('./src/routes/Item');
 const userRoutes = require('./src/routes/User');
 
-const database = require('./src/database');
-
 const app = express();
 
 const fileStorage = multer.diskStorage({
@@ -74,5 +72,34 @@ app.use((error, req, res, next) => {
     errors: errorsPresent,
   });
 });
+
+mongoose
+  .connect(
+    `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-ehilu.mongodb.net/<dbname>?retryWrites=true&w=majority`,
+    { useNewUrlParser: true, useUnifiedTopology: true }
+  )
+  .then((result) => {
+    console.log('Connected to db');
+    const server = app.listen(process.env.PORT || 3000);
+    const io = require('./src/util/socket').init(server);
+    io.on('connection', (socket) => {
+      socket.on('add-user', (data) => {
+        clients[data.userId] = {
+          socket: socket.id,
+        };
+      });
+
+      //Removing the socket on disconnect
+      socket.on('disconnect', () => {
+        for (const userId in clients) {
+          if (clients[userId].socket === socket.id) {
+            delete clients[userId];
+            break;
+          }
+        }
+      });
+    });
+  })
+  .catch((err) => console.log(err));
 
 exports.clients = clients;
