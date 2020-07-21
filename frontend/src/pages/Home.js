@@ -46,7 +46,7 @@ const Home = () => {
               </Typography>
             </Grid>
             <Grid item className={classes.SearchBar}>
-              <SearchBar page='home' action={setLocationStatus} />
+              {/* <SearchBar page='home' action={setLocationStatus} /> */}
             </Grid>
             <Grid item container>
               <Grid item xs={false} sm={1} />

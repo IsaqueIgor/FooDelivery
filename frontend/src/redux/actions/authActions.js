@@ -8,7 +8,7 @@ import {
   SET_USER,
   SET_ERROR,
   SET_UNAUTHENTICATED,
-  SET_ERRORS_SIGNUP_SELLER,
+  SET_ERRORS_SIGNUP_RESTAURANT,
 } from '../types';
 
 import api from '../../util/api';
@@ -125,7 +125,7 @@ export const signupSellerFinal = (newSellerData, history) => (dispatch) => {
     .catch((err) => {
       if (err.response) {
         dispatch({
-          type: SET_ERRORS_SIGNUP_SELLER,
+          type: SET_ERRORS_SIGNUP_RESTAURANT,
           payload: err.response.data,
         });
       } else {
