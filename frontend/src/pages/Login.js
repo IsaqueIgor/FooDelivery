@@ -19,6 +19,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+import Logo from '../assets/logo.png';
+
 //custom-hook
 import useForm from '../hooks/forms';
 import { loginAction } from '../redux/actions/authActions';
@@ -47,9 +49,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
   },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main,
+  logo: {
+    margin: theme.spacing(8),
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -100,12 +101,9 @@ export default function Login() {
     <Container component='main' maxWidth='xs'>
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component='h1' variant='h5'>
-          Sign in
-        </Typography>
+        <div className={classes.logo}>
+          <img src={Logo} />
+        </div>
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           {signUpSuccess && (
             <Typography variant='body2' className={classes.customSuccess}>
@@ -176,9 +174,8 @@ export default function Login() {
               </Link>
             </Grid>
             <Grid item>
-              <Link href='#' variant='body2'>
+              <Link to='/register' variant='body2'>
                 {"Don't have an account? Sign Up "}
-                <Link to='/register'>here</Link>
               </Link>
             </Grid>
           </Grid>
