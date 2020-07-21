@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
 //components
-import SearchBar from '../components/SearchBar';
+import Nav from '../components/AppBar';
 import HomeStart from '../components/HomeStart';
 
 const useStyles = makeStyles(() => ({
@@ -37,6 +37,7 @@ const Home = () => {
         <Redirect to='/restaurant/dashboard' />
       ) : (
         <>
+          <Nav />
           <HomeStart />
           <Grid container direction='column'>
             <Grid item>

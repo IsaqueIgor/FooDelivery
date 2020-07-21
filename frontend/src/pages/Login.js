@@ -3,26 +3,63 @@ import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-//material-ui
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
+//Material UI
+import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import LinkUI from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 //custom-hook
 import useForm from '../hooks/forms';
 import { loginAction } from '../redux/actions/authActions';
 
+function Copyright() {
+  return (
+    <Typography variant='body2' color='textSecondary' align='center'>
+      {'Copyright © '}
+      <LinkUI
+        color='inherit'
+        target='_blank'
+        href='https://www.linkedin.com/in/isaqueigor/'
+      >
+        Isaque Igor
+      </LinkUI>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
+
 const useStyles = makeStyles((theme) => ({
-  ...theme.spreadThis,
-  title: {
-    margin: '10px 0px 10px 0px',
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
-  hamBurger: {
-    height: 200,
-    width: 240,
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.primary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  buttonsubmit: {
+    borderRadius: 16,
+    height: 46,
+    background: theme.palette.primary.main,
+    margin: theme.spacing(3, 0, 2),
   },
 }));
 
@@ -60,13 +97,16 @@ export default function Login() {
   }
 
   return (
-    <Grid container className={classes.form}>
-      <Grid item sm />
-      <Grid item sm style={{ marginBottom: 34 }}>
-        <Typography variant='h3' className={classes.title}>
-          Login
+    <Container component='main' maxWidth='xs'>
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component='h1' variant='h5'>
+          Sign in
         </Typography>
-        <form noValidate onSubmit={handleSubmit}>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           {signUpSuccess && (
             <Typography variant='body2' className={classes.customSuccess}>
               Account registered successfully, please verify your Email before
@@ -74,30 +114,37 @@ export default function Login() {
             </Typography>
           )}
           <TextField
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
             id='email'
+            label='Email Address'
             name='email'
-            label='Email'
-            className={classes.textField}
+            autoComplete='email'
+            autoFocus
             onChange={handleInputChange}
             value={inputs.email}
-            fullWidth
           />
           <TextField
-            id='password'
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
             name='password'
-            type='password'
-            label='Password'
             className={classes.textField}
             onChange={handleInputChange}
             value={inputs.password}
-            fullWidth
+            label='Password'
+            type='password'
+            id='password'
+            autoComplete='current-password'
           />
           {serverError && (
             <Typography variant='body2' className={classes.customError}>
               {'server error, please try again'}
             </Typography>
           )}
-
           {verifyEmailError && (
             <Typography variant='body2' className={classes.customError}>
               {verifyEmailError}
@@ -109,25 +156,37 @@ export default function Login() {
               {incorrectCredentialsError}
             </Typography>
           )}
-
           <Button
             type='submit'
+            fullWidth
+            disabled={loading}
             variant='contained'
             color='primary'
-            className={classes.button}
-            disabled={loading}
+            className={classes.buttonsubmit}
           >
             Login
             {loading && (
               <CircularProgress size={30} className={classes.progress} />
             )}
           </Button>
-          <br />
-          <small className={classes.small}>
-            don't have an account ? sign up <Link to='/register'>here</Link>
-          </small>
+          <Grid container>
+            <Grid item xs>
+              <Link href='#' variant='body2'>
+                Forgot password?
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link href='#' variant='body2'>
+                {"Don't have an account? Sign Up "}
+                <Link to='/register'>here</Link>
+              </Link>
+            </Grid>
+          </Grid>
         </form>
-      </Grid>
-    </Grid>
+      </div>
+      <Box mt={8}>
+        <Copyright />
+      </Box>
+    </Container>
   );
 }

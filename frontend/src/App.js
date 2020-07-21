@@ -18,10 +18,6 @@ import { logoutAction, getUserData } from './redux/actions/authActions';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 
-//components
-import AppBar from './components/AppBar';
-import Footer from './components/Footer';
-
 //restrict routes
 import { AuthRoute, RestaurantRoute, UserRoute } from './routes.js';
 
@@ -55,14 +51,11 @@ function App() {
     <MuiThemeProvider theme={theme}>
       <Provider store={store}>
         <Router>
-          <AppBar />
-
           <Switch>
-            <Route exact path='/' component={Home} />
-            <AuthRoute exact path='/login' component={Login} />
+            <Route exact path='/' component={Login} />
+            <AuthRoute exact path='/home' component={Home} />
             <Route component={Error404} />
           </Switch>
-          <Footer />
         </Router>
       </Provider>
     </MuiThemeProvider>

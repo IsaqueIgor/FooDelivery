@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 400,
   },
   delivery: {
-    color: '#157a21',
+    color: '#46b04a',
     fontSize: 64,
     fontWeight: 'bold',
     marginTop: -30,
