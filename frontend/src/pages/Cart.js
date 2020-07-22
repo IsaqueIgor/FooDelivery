@@ -4,7 +4,7 @@ import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getCart, fetchAddress } from '../redux/actions/dataActions';
-import Spinner from '../util/spinner/spinner';
+import Spinner from '../util/spinner';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -12,7 +12,7 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-import MyButton from '../util/MyButton';
+import MyButton from '../util/Button';
 
 //custom-hook
 import useForm from '../hooks/forms';
@@ -65,7 +65,7 @@ const Cart = (props) => {
   let streetError = null;
   let aptError = null;
   let localityError = null;
-  let zipError = null;
+  let cepError = null;
   let phoneNoError = null;
 
   if (price !== 0) deliveryCharge = 20;
@@ -73,10 +73,10 @@ const Cart = (props) => {
   const handlePlaceOrder = () => {
     const userData = {
       street: inputs.street,
-      aptName: inputs.aptName,
+      apt: inputs.apt,
       locality: inputs.locality,
-      zip: inputs.zip,
-      phoneNo: inputs.phoneNo,
+      cep: inputs.cep,
+      phone: inputs.phone,
     };
     dispatch(fetchAddress(userData, history));
   };
@@ -94,17 +94,17 @@ const Cart = (props) => {
       props.location.state.address != undefined
         ? props.location.state.address.locality
         : '',
-    aptName:
+    apt:
       props.location.state.address != null &&
       // eslint-disable-next-line
       props.location.state.address != undefined
-        ? props.location.state.address.aptName
+        ? props.location.state.address.apt
         : '',
-    zip:
+    cep:
       props.location.state.address != null &&
       // eslint-disable-next-line
       props.location.state.address != undefined
-        ? props.location.state.address.zip
+        ? props.location.state.address.cep
         : '',
     phoneNo:
       props.location.state.address != null &&
@@ -130,7 +130,7 @@ const Cart = (props) => {
   if (errors) {
     for (let error of errors) {
       if (error.msg.includes('10 digit phone')) phoneNoError = error.msg;
-      if (error.msg.includes('Zipcode cannot')) zipError = error.msg;
+      if (error.msg.includes('Cepcode cannot')) cepError = error.msg;
       if (error.msg.includes('Locality cannot')) localityError = error.msg;
       if (error.msg.includes('Apartment name cannot')) aptError = error.msg;
       if (error.msg.includes('Street cannot')) streetError = error.msg;
@@ -171,12 +171,12 @@ const Cart = (props) => {
                   </Typography>
                   <div className={classes.address}>
                     <TextField
-                      id='aptName'
-                      name='aptName'
+                      id='apt'
+                      name='apt'
                       label='Flat/Apartment Name'
                       className={classes.textField}
                       onChange={handleInputChange}
-                      value={inputs.aptName}
+                      value={inputs.apt}
                       helperText={aptError}
                       error={aptError ? true : false}
                       fullWidth
@@ -207,14 +207,14 @@ const Cart = (props) => {
                       required
                     />
                     <TextField
-                      id='zipCode'
-                      name='zip'
-                      label='Zip Code'
+                      id='cepCode'
+                      name='cep'
+                      label='Cep Code'
                       className={classes.textField}
                       onChange={handleInputChange}
-                      value={inputs.zip}
-                      helperText={zipError}
-                      error={zipError ? true : false}
+                      value={inputs.cep}
+                      helperText={cepError}
+                      error={cepError ? true : false}
                       type='number'
                       fullWidth
                       required

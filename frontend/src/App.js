@@ -26,6 +26,7 @@ import Home from './pages/Home';
 import Error404 from './pages/404';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Cart from './pages/Cart';
 
 //theme
 import themeFile from './util/theme';
@@ -57,6 +58,7 @@ function App() {
             <Route exact path='/register' component={Register} />
 
             <AuthRoute exact path='/home' component={Home} />
+            <UserRoute exact path='/cart' component={Cart} />
             <Route component={Error404} />
           </Switch>
         </Router>

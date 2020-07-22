@@ -10,6 +10,8 @@ import Grid from '@material-ui/core/Grid';
 //components
 import Nav from '../components/AppBar';
 import HomeStart from '../components/HomeStart';
+import RestaurantContent from '../components/RestaurantContent';
+import Spinner from '../util/spinner';
 
 const useStyles = makeStyles(() => ({
   center: {
@@ -30,6 +32,8 @@ const Home = () => {
   const [locationStatus, setLocationStatus] = useState(
     localStorage.getItem('location') ? true : false
   );
+
+  let restaurantMarkup = loading ? <Spinner /> : <RestaurantContent />;
 
   return (
     <>
@@ -52,9 +56,13 @@ const Home = () => {
             <Grid item container>
               <Grid item xs={false} sm={1} />
               <Grid item xs={12} sm={10}>
-                <Typography variant='body1' className={classes.center} noWrap>
-                  Enter your location to view nearby restaurants
-                </Typography>
+                {locationStatus ? (
+                  restaurantMarkup
+                ) : (
+                  <Typography variant='body1' className={classes.center} noWrap>
+                    Enter your location to view nearby restaurants
+                  </Typography>
+                )}
               </Grid>
               <Grid item xs={false} sm={1} />
             </Grid>
