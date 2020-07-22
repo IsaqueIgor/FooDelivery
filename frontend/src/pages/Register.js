@@ -4,12 +4,20 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 //material-ui
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Checkbox from '@material-ui/core/Checkbox';
+import LinkUI from '@material-ui/core/Link';
+import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { makeStyles } from '@material-ui/core/styles';
+
+import Logo from '../assets/logo.png';
 
 //custom-hook
 import useForm from '../hooks/forms';
@@ -17,11 +25,50 @@ import useForm from '../hooks/forms';
 import { signupUser } from '../redux/actions/authActions';
 
 const useStyles = makeStyles((theme) => ({
-  ...theme.spreadThis,
-  title: {
-    margin: '48px 0px 10px 0px',
+  root: {
+    height: '100vh',
+  },
+  image: {
+    backgroundImage: 'url(https://source.unsplash.com/random)',
+    backgroundRepeat: 'no-repeat',
+    backgroundColor:
+      theme.palette.type === 'light'
+        ? theme.palette.grey[50]
+        : theme.palette.grey[900],
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  },
+  paper: {
+    margin: theme.spacing(8, 4),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
   },
 }));
+
+function Copyright() {
+  return (
+    <Typography variant='body2' color='textSecondary' align='center'>
+      {'Copyright © '}
+      <LinkUI color='inherit' href='https://github.com/IsaqueIgor'>
+        Isaque Igor
+      </LinkUI>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
 
 export default function Register() {
   const classes = useStyles();
@@ -79,104 +126,136 @@ export default function Register() {
   }
 
   return (
-    <Grid container className={classes.form}>
-      <Grid item sm />
-      <Grid item sm>
-        <Typography variant='h3' className={classes.title}>
-          Register{' '}
-          <span role='img' aria-label='Pizza Emoji'>
-            🍕
-          </span>
-        </Typography>
-        <form noValidate onSubmit={handleSubmit}>
-          <TextField
-            id='firstName'
-            name='firstName'
-            label='FirstName'
-            onChange={handleInputChange}
-            value={inputs.firstName}
-            className={classes.textField}
-            helperText={firstNameEmptyError}
-            error={firstNameEmptyError ? true : false}
-            fullWidth
-            required
-          />
-          <TextField
-            id='lastName'
-            name='lastName'
-            label='LastName'
-            onChange={handleInputChange}
-            value={inputs.lastName}
-            className={classes.textField}
-            helperText={lastNameEmptyError}
-            error={lastNameEmptyError ? true : false}
-            fullWidth
-            required
-          />
-          <TextField
-            id='email'
-            name='email'
-            label='Email'
-            onChange={handleInputChange}
-            value={inputs.email}
-            className={classes.textField}
-            fullWidth
-            helperText={emailError}
-            error={emailError ? true : false}
-            required
-          />
-          <TextField
-            id='password'
-            name='password'
-            type='password'
-            label='Password'
-            onChange={handleInputChange}
-            value={inputs.password}
-            className={classes.textField}
-            helperText={passwordError}
-            error={passwordError ? true : false}
-            fullWidth
-            required
-          />
-          <TextField
-            id='confirmPassword'
-            name='confirmPassword'
-            type='password'
-            label='Confirm Password'
-            onChange={handleInputChange}
-            value={inputs.confirmPassword}
-            className={classes.textField}
-            helperText={passwordError ? passwordError : confirmPasswordError}
-            error={passwordError ? true : confirmPasswordError ? true : false}
-            fullWidth
-            required
-          />
-
-          {serverError && (
-            <Typography variant='body2' className={classes.customError}>
-              {'server error, please try again'}
+    <Grid container component='main' className={classes.root}>
+      <CssBaseline />
+      <Grid item xs={false} sm={4} md={7} className={classes.image} />
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <div className={classes.paper}>
+          <div className={classes.paper}>
+            <div className={classes.logo}>
+              <img src={Logo} />
+            </div>
+            <Typography component='h1' variant='h5'>
+              Sign Up
             </Typography>
-          )}
+            <form className={classes.form} noValidate onSubmit={handleSubmit}>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    id='firstName'
+                    name='firstName'
+                    label='FirstName'
+                    onChange={handleInputChange}
+                    value={inputs.firstName}
+                    className={classes.textField}
+                    helperText={firstNameEmptyError}
+                    error={firstNameEmptyError ? true : false}
+                    required
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    id='lastName'
+                    name='lastName'
+                    label='LastName'
+                    onChange={handleInputChange}
+                    value={inputs.lastName}
+                    className={classes.textField}
+                    helperText={lastNameEmptyError}
+                    error={lastNameEmptyError ? true : false}
+                    required
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    id='email'
+                    name='email'
+                    label='Email'
+                    onChange={handleInputChange}
+                    value={inputs.email}
+                    className={classes.textField}
+                    fullWidth
+                    helperText={emailError}
+                    error={emailError ? true : false}
+                    required
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    id='password'
+                    name='password'
+                    type='password'
+                    label='Password'
+                    onChange={handleInputChange}
+                    value={inputs.password}
+                    className={classes.textField}
+                    helperText={passwordError}
+                    error={passwordError ? true : false}
+                    fullWidth
+                    required
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    id='confirmPassword'
+                    name='confirmPassword'
+                    type='password'
+                    label='Confirm Password'
+                    onChange={handleInputChange}
+                    value={inputs.confirmPassword}
+                    className={classes.textField}
+                    helperText={
+                      passwordError ? passwordError : confirmPasswordError
+                    }
+                    error={
+                      passwordError ? true : confirmPasswordError ? true : false
+                    }
+                    fullWidth
+                    required
+                  />
+                </Grid>
+              </Grid>
 
-          <Button
-            type='submit'
-            variant='contained'
-            color='primary'
-            className={classes.button}
-            disabled={loading}
-          >
-            Sign-up
-            {loading && (
-              <CircularProgress size={30} className={classes.progress} />
-            )}
-          </Button>
-          <br />
-          <small className={classes.small}>
-            Already have an account ? Login <Link to='/'>here</Link>
-          </small>
-        </form>
+              {serverError && (
+                <Typography variant='body2' className={classes.customError}>
+                  {'server error, please try again'}
+                </Typography>
+              )}
+
+              <Button
+                type='submit'
+                variant='contained'
+                color='primary'
+                fullWidth
+                className={classes.submit}
+                disabled={loading}
+              >
+                Sign-up
+                {loading && (
+                  <CircularProgress size={30} className={classes.progress} />
+                )}
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link href='#' variant='body2'>
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link to='/' variant='body2'>
+                    {"Don't have an account? Sign In"}
+                  </Link>
+                </Grid>
+              </Grid>
+              <Box mt={5}>
+                <Copyright />
+              </Box>
+            </form>
+          </div>
+        </div>
       </Grid>
-      <Grid item sm />
     </Grid>
   );
 }

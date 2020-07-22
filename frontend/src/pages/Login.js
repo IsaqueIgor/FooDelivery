@@ -20,6 +20,7 @@ import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import Logo from '../assets/logo.png';
+import Svg from '../assets/svg/login.svg';
 
 //custom-hook
 import useForm from '../hooks/forms';
@@ -43,11 +44,21 @@ function Copyright() {
 }
 
 const useStyles = makeStyles((theme) => ({
+  container: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+  },
+  svg: {
+    display: 'flex',
+    justifyItems: 'flex-start',
+    position: 'absolute',
   },
   logo: {
     margin: theme.spacing(8),
@@ -98,92 +109,101 @@ export default function Login() {
   }
 
   return (
-    <Container component='main' maxWidth='xs'>
-      <CssBaseline />
-      <div className={classes.paper}>
-        <div className={classes.logo}>
-          <img src={Logo} />
+    <>
+      {' '}
+      <div className={classes.container}>
+        <div className={classes.svg}>
+          <img src={Svg} />
         </div>
-        <form className={classes.form} noValidate onSubmit={handleSubmit}>
-          {signUpSuccess && (
-            <Typography variant='body2' className={classes.customSuccess}>
-              Account registered successfully, please verify your Email before
-              logging-in
-            </Typography>
-          )}
-          <TextField
-            variant='outlined'
-            margin='normal'
-            required
-            fullWidth
-            id='email'
-            label='Email Address'
-            name='email'
-            autoComplete='email'
-            autoFocus
-            onChange={handleInputChange}
-            value={inputs.email}
-          />
-          <TextField
-            variant='outlined'
-            margin='normal'
-            required
-            fullWidth
-            name='password'
-            className={classes.textField}
-            onChange={handleInputChange}
-            value={inputs.password}
-            label='Password'
-            type='password'
-            id='password'
-            autoComplete='current-password'
-          />
-          {serverError && (
-            <Typography variant='body2' className={classes.customError}>
-              {'server error, please try again'}
-            </Typography>
-          )}
-          {verifyEmailError && (
-            <Typography variant='body2' className={classes.customError}>
-              {verifyEmailError}
-            </Typography>
-          )}
+        <Container maxWidth='xs'>
+          <CssBaseline />
+          <div className={classes.paper}>
+            <div className={classes.logo}>
+              <img src={Logo} />
+            </div>
+            <form className={classes.form} noValidate onSubmit={handleSubmit}>
+              {signUpSuccess && (
+                <Typography variant='body2' className={classes.customSuccess}>
+                  Account registered successfully, please verify your Email
+                  before logging-in
+                </Typography>
+              )}
+              <TextField
+                variant='outlined'
+                margin='normal'
+                required
+                fullWidth
+                id='email'
+                label='Email Address'
+                name='email'
+                autoComplete='email'
+                autoFocus
+                onChange={handleInputChange}
+                value={inputs.email}
+              />
+              <TextField
+                variant='outlined'
+                margin='normal'
+                required
+                fullWidth
+                name='password'
+                className={classes.textField}
+                onChange={handleInputChange}
+                value={inputs.password}
+                label='Password'
+                type='password'
+                id='password'
+                autoComplete='current-password'
+              />
+              {serverError && (
+                <Typography variant='body2' className={classes.customError}>
+                  {'server error, please try again'}
+                </Typography>
+              )}
+              {verifyEmailError && (
+                <Typography variant='body2' className={classes.customError}>
+                  {verifyEmailError}
+                </Typography>
+              )}
 
-          {incorrectCredentialsError && (
-            <Typography variant='body2' className={classes.customError}>
-              {incorrectCredentialsError}
-            </Typography>
-          )}
-          <Button
-            type='submit'
-            fullWidth
-            disabled={loading}
-            variant='contained'
-            color='primary'
-            className={classes.buttonsubmit}
-          >
-            Login
-            {loading && (
-              <CircularProgress size={30} className={classes.progress} />
-            )}
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href='#' variant='body2'>
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link to='/register' variant='body2'>
-                {"Don't have an account? Sign Up "}
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
+              {incorrectCredentialsError && (
+                <Typography variant='body2' className={classes.customError}>
+                  {incorrectCredentialsError}
+                </Typography>
+              )}
+              <Button
+                type='submit'
+                fullWidth
+                disabled={loading}
+                variant='contained'
+                color='primary'
+                className={classes.buttonsubmit}
+              >
+                Login
+                {loading && (
+                  <CircularProgress size={30} className={classes.progress} />
+                )}
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link href='#' variant='body2'>
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link to='/register' variant='body2'>
+                    {"Don't have an account? Sign Up "}
+                  </Link>
+                </Grid>
+              </Grid>
+            </form>
+          </div>
+
+          <Box mt={8}>
+            <Copyright />
+          </Box>
+        </Container>
       </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
-    </Container>
+    </>
   );
 }
