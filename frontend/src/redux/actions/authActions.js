@@ -80,10 +80,10 @@ export const getUserData = () => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export const signupSeller = (newSellerData, history) => (dispatch) => {
-  const location = `+${newSellerData.get('apt')},+${newSellerData.get(
+export const signupRestaurant = (newRestaurantData, history) => (dispatch) => {
+  const location = `+${newRestaurantData.get('apt')},+${newRestaurantData.get(
     'locality'
-  )},+${newSellerData.get('street')},+${newSellerData.get('cep')}`;
+  )},+${newRestaurantData.get('street')},+${newRestaurantData.get('cep')}`;
   axiosNewInstance
     .get('https://maps.googleapis.com/maps/api/geocode/json', {
       params: {
@@ -99,22 +99,24 @@ export const signupSeller = (newSellerData, history) => (dispatch) => {
         const formattedAddress = result.data.results[0].formatted_address;
         const latitude = result.data.results[0].geometry.location.lat;
         const longitude = result.data.results[0].geometry.location.lng;
-        newSellerData.append('latitude', latitude);
-        newSellerData.append('longitude', longitude);
-        newSellerData.append('formattedAddress', formattedAddress);
+        newRestaurantData.append('latitude', latitude);
+        newRestaurantData.append('longitude', longitude);
+        newRestaurantData.append('formattedAddress', formattedAddress);
       }
 
-      dispatch(signupSellerFinal(newSellerData, history));
+      dispatch(signupRestaurantFinal(newRestaurantData, history));
     })
     .catch((err) => {
       console.log(err);
     });
 };
 
-export const signupSellerFinal = (newSellerData, history) => (dispatch) => {
+export const signupRestaurantFinal = (newRestaurantData, history) => (
+  dispatch
+) => {
   dispatch({ type: LOADING_UI });
   api
-    .post('/auth/signup-seller', newSellerData)
+    .post('/auth/signup-restaurant', newRestaurantData)
     .then((res) => {
       dispatch({
         type: SIGNUP_SUCCESS,
