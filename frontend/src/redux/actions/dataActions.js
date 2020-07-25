@@ -17,13 +17,13 @@ import {
   SET_ORDERS,
   EDIT_STATUS,
 } from '../types';
-import axios from '../../util/api';
+import api from '../../util/api';
 import axiosNewInstance from 'axios';
 import { getUserData } from './authActions';
 
 export const fetchRestaurants = () => (dispatch) => {
   dispatch({ type: LOADING_DATA });
-  axios
+  api
     .get('/restaurants')
     .then((res) => {
       dispatch({
@@ -44,7 +44,7 @@ export const fetchRestaurantsByAddress = (latitude, longitude) => (
   dispatch
 ) => {
   dispatch({ type: LOADING_DATA });
-  axios
+  api
     .get(`/restaurants-location/${latitude}/${longitude}`)
     .then((res) => {
       dispatch({
@@ -63,7 +63,7 @@ export const fetchRestaurantsByAddress = (latitude, longitude) => (
 
 export const fetchRestaurant = (restId) => (dispatch) => {
   dispatch({ type: LOADING_DATA });
-  axios
+  api
     .get(`/restaurant/${restId}`)
     .then((res) => {
       dispatch({
@@ -82,7 +82,7 @@ export const fetchRestaurant = (restId) => (dispatch) => {
 
 export const addItem = (itemData) => (dispatch) => {
   dispatch({ type: LOADING_UI });
-  axios
+  api
     .post(`/restaurant/create-item`, itemData)
     .then((res) => {
       dispatch({
@@ -107,7 +107,7 @@ export const addItem = (itemData) => (dispatch) => {
 };
 
 export const deleteItem = (itemId) => (dispatch) => {
-  axios
+  api
     .delete(`/restaurant/delete-item/${itemId}`)
     .then((res) => {
       dispatch({
@@ -121,7 +121,7 @@ export const deleteItem = (itemId) => (dispatch) => {
 };
 
 export const editItem = (itemData, itemId) => (dispatch) => {
-  axios
+  api
     .put(`/restaurant/edit-item/${itemId}`, itemData)
     .then((res) => {
       dispatch({
@@ -145,7 +145,7 @@ export const editItem = (itemData, itemId) => (dispatch) => {
 };
 
 export const addToCart = (itemData) => (dispatch) => {
-  axios
+  api
     .post('/cart', itemData)
     .then((res) => {
       dispatch({
@@ -163,7 +163,7 @@ export const addToCart = (itemData) => (dispatch) => {
 };
 
 export const getCart = () => (dispatch) => {
-  axios
+  api
     .get('/cart')
     .then((res) => {
       dispatch({
@@ -181,7 +181,7 @@ export const getCart = () => (dispatch) => {
 };
 
 export const deleteCartItem = (itemData) => (dispatch) => {
-  axios
+  api
     .post('/delete-cart-item', itemData)
     .then((res) => {
       dispatch({
@@ -195,7 +195,7 @@ export const deleteCartItem = (itemData) => (dispatch) => {
 };
 
 export const removeCartItem = (itemID) => (dispatch) => {
-  axios
+  api
     .post(`/remove-cart-item/${itemID}`)
     .then((res) => {
       console.log(res.data);
@@ -232,7 +232,7 @@ export const fetchAddress = (userData, history) => (dispatch) => {
 
 export const addAddress = (userData, history) => (dispatch) => {
   console.log(userData.formattedAddress);
-  axios
+  api
     .post('/user/address', userData)
     .then((res) => {
       // console.log(res.data);
@@ -256,7 +256,7 @@ export const addAddress = (userData, history) => (dispatch) => {
 };
 
 export const placeOrder = (history) => (dispatch) => {
-  axios
+  api
     .post('/order')
     .then((res) => {
       history.push('/orders');
@@ -269,7 +269,7 @@ export const placeOrder = (history) => (dispatch) => {
 
 export const getOrders = () => (dispatch) => {
   dispatch({ type: LOADING_DATA });
-  axios
+  api
     .get('/orders')
     .then((res) => {
       dispatch({
@@ -283,7 +283,7 @@ export const getOrders = () => (dispatch) => {
 };
 
 export const changeOrderStatus = (orderId, body) => (dispatch) => {
-  axios
+  api
     .post(`/order-status/${orderId}`, body)
     .then((res) => {
       dispatch({
