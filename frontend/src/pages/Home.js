@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
 //components
-import Nav from '../components/AppBar';
+import Nav from '../components/NavBar';
 import HomeStart from '../components/HomeStart';
 import RestaurantContent from '../components/RestaurantContent';
 import Spinner from '../util/spinner';
