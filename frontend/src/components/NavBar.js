@@ -1,4 +1,8 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
+
 import clsx from 'clsx';
 import Logo from '../assets/logo.png';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -11,14 +15,15 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Fastfood from '@material-ui/icons/Fastfood';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import MailIcon from '@material-ui/icons/Mail';
+import InboxIcon from '@material-ui/icons/Inbox';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/ExitToApp';
-import MailIcon from '@material-ui/icons/Mail';
+import ExitToApp from '@material-ui/icons/ExitToApp';
 import { AuthRoute } from '../routes';
+
+import { logoutAction } from '../redux/actions/authActions';
 
 const drawerWidth = 240;
 
@@ -92,6 +97,8 @@ export default function NavBar() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -99,6 +106,18 @@ export default function NavBar() {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const {
+    account: { role },
+    authenticated,
+    firstName,
+    lastName,
+    address,
+  } = useSelector((state) => state.auth);
+
+  const handleLogout = () => {
+    dispatch(logoutAction(history));
   };
 
   return (
@@ -162,14 +181,19 @@ export default function NavBar() {
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          <ListItem
+            onClick={handleLogout}
+            className={classes.buttonStyles}
+            variant='outlined'
+            key={'text'}
+          >
+            <ListItemIcon>
+              <div>
+                <ExitToApp />
+              </div>
+            </ListItemIcon>
+            <ListItemText primary={'Logout'} />
+          </ListItem>
         </List>
       </Drawer>
     </div>

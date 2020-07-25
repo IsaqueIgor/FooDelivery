@@ -142,5 +142,5 @@ export const logoutAction = (history) => (dispatch) => {
   localStorage.removeItem('jwt');
   delete api.defaults.headers.common['Authorization'];
   dispatch({ type: SET_UNAUTHENTICATED });
-  if (history) history.push('/login');
+  if (history) history.push('/');
 };
