@@ -9,6 +9,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+import SwipeableImages from './SwipeableImages';
+
 const useStyles = makeStyles({
   cardContent: {
     marginTop: '-40px',
@@ -39,6 +41,7 @@ export default function RestaurantCard(props) {
 
   return (
     <Card variant='outlined'>
+      <SwipeableImages images={imageUrl} type='home' />
       <CardContent className={classes.cardContent}>
         <Typography gutterBottom variant='h5' component='h2'>
           {name}

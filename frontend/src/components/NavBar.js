@@ -15,12 +15,13 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Fastfood from '@material-ui/icons/Fastfood';
-import MailIcon from '@material-ui/icons/Mail';
-import InboxIcon from '@material-ui/icons/Inbox';
+import Button from '@material-ui/core/Button';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ExitToApp from '@material-ui/icons/ExitToApp';
+import Orders from '@material-ui/icons/ListAlt';
+import Cart from '@material-ui/icons/ShoppingCart';
 import { AuthRoute } from '../routes';
 
 import { logoutAction } from '../redux/actions/authActions';
@@ -169,16 +170,46 @@ export default function NavBar() {
           </IconButton>
         </div>
         <Divider />
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
+        {authenticated ? (
+          role === 'ROLE_RESTAURANT' ? (
+            <div className={classes.buttons}>
+              <Typography className={classes.buttonStyles}>
+                Seller Dashboard
+              </Typography>
+              <Link to='/seller/orders'>
+                <Button className={classes.buttonStyles}>Orders</Button>
+              </Link>
+              <Button
+                onClick={handleLogout}
+                className={classes.buttonStyles}
+                variant='outlined'
+              >
+                Logout
+              </Button>
+            </div>
+          ) : (
+            <List>
+              <ListItem button key={'orders'}>
+                <ListItemIcon>
+                  <Link to='/orders'>
+                    <Orders />
+                  </Link>
+                </ListItemIcon>
+                <ListItemText primary={'Orders'} />
+              </ListItem>
+              <ListItem button key={'cart'}>
+                <ListItemIcon>
+                  <Link to={{ pathname: '/cart', state: { address: address } }}>
+                    <Cart />
+                  </Link>
+                </ListItemIcon>
+                <ListItemText primary={'Cart'} />
+              </ListItem>
+            </List>
+          )
+        ) : (
+          <h1>Not auth</h1>
+        )}
         <Divider />
         <List>
           <ListItem

@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 
 //components
 import Nav from '../components/NavBar';
+import SearchBar from '../components/SearchBar';
 import HomeStart from '../components/HomeStart';
 import RestaurantContent from '../components/RestaurantContent';
 import Spinner from '../util/spinner';
@@ -51,7 +52,7 @@ const Home = () => {
               </Typography>
             </Grid>
             <Grid item className={classes.SearchBar}>
-              {/* <SearchBar page='home' action={setLocationStatus} /> */}
+              <SearchBar page='home' action={setLocationStatus} />
             </Grid>
             <Grid item container>
               <Grid item xs={false} sm={1} />

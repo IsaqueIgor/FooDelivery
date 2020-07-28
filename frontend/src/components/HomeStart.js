@@ -5,6 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
+import cover from '../assets/food_upscaled.png';
+
 const useStyles = makeStyles((theme) => ({
   presentation: {
     display: 'flex',
@@ -73,7 +75,9 @@ const HomeStart = () => {
           ORDER NOW
         </Button>
       </div>
-      <div className={classes.cover}></div>
+      <div className={classes.cover}>
+        <img src={cover} alt='safe-delivery' className={classes.coverImg} />
+      </div>
     </section>
   );
 };
