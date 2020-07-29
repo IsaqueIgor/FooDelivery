@@ -37,7 +37,7 @@ function RestaurantItems(props) {
                   <ItemCard {...item} />
                 </Grid>
               ))
-            ) : role === 'ROLE_SELLER' ? (
+            ) : role === 'ROLE_RESTAURANT' ? (
               <p className={classes.paraSeller}>
                 No Items present, start adding Items to get your first order.
               </p>
