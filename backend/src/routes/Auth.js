@@ -36,6 +36,7 @@ router.post(
         return true;
       }),
   ],
+
   authController.signupUser
 );
 
